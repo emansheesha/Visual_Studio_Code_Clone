@@ -3,22 +3,30 @@ import type { IFile } from "../interfaces";
 import { RightArrow } from "./SVG/RightArrow";
 import { BottomArrow } from "./SVG/BottomArrow";
 import { RenderFileIcon } from "./RenderFileIcon";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../redux/store";
+import { setOpenedFiles } from "../redux/reducers/fileTreeSlice";
 
 const RecursiveComponent = (fileTrees: IFile) => {
   const [isOpen, setIsOpen] = useState(false);
-  const handleToggleFolder = () => {
+  const state = useSelector((state: RootState) => state.fileTree.openedFiles)
+  const dispatch = useDispatch();
+  const handleToggleFolder = (name:string, isFolder:boolean) => {
     setIsOpen((prev) => !prev);
+    dispatch(setOpenedFiles([...state,{name:name, isFolder : isFolder}]))
   };
   return (
     <div className="ms-2 my-2">
       <div className="flex gap-2 ms-2 cursor-pointer">
         {fileTrees.isFolder ? (
-          <div className="flex gap-1 items-center" onClick={handleToggleFolder}>
+          <div className="flex gap-1 items-center" onClick={()=>handleToggleFolder(fileTrees.name, fileTrees.isFolder)}>
             {isOpen ? <BottomArrow /> : <RightArrow />}
-            <RenderFileIcon filename={fileTrees.name}/>
+            <RenderFileIcon filename={fileTrees.name} isOpen={isOpen} isFolder={fileTrees.isFolder}/>
           </div>
         ) : (
-          <RenderFileIcon filename={fileTrees.name}/>
+          <div className="flex gap-1 items-center"  onClick={()=>dispatch(setOpenedFiles([...state,{name:fileTrees.name, isFolder : fileTrees.isFolder}]))}>
+            <RenderFileIcon filename={fileTrees.name} isOpen={isOpen} isFolder={fileTrees.isFolder}/>
+            </div>
         )}
 
         <span>{fileTrees.name}</span>

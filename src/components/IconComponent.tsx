@@ -3,7 +3,7 @@ interface IIcon{
 }
  const IconComponent = ({icon}:IIcon) => {
   return (
-    <img src={icon} />
+    <img src={icon} width={16} height={16}/>
   )
 }
 export default IconComponent;

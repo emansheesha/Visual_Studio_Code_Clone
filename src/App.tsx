@@ -1,7 +1,6 @@
 import "./App.css";
 import RecursiveComponent from "./components/RecursiveComponent";
 import { fileTree } from "./data/listTree";
-
 function App() {
   return (
     <>

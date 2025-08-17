@@ -19,6 +19,10 @@ export const fileTree: IFile = {
                         {
                             name: "react1.ts",
                             isFolder: false
+                        },
+                        {
+                            name: "react1.txt",
+                            isFolder: false
                         }
                     ]
                 },
