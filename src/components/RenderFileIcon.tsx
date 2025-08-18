@@ -11,7 +11,7 @@ export const RenderFileIcon = ({ filename, isOpen, isFolder }: IFileIcon) => {
   // filename.includes(".")
   //   ? filename.split(".").pop()
   //   : null;
-  
+
   const extensionPaths: Record<string, string> = {
     html: "html",
     css: "css",
